@@ -4,9 +4,6 @@ import datetime
 host = "sftp.freedommortgage.com"                    #hard-coded
 port = 22
 
-
-
-  
 transport = paramiko.Transport((host, port))
 
 password = "password"                #hard-coded
