@@ -5,7 +5,7 @@ import sqlite3
 import csv
 
 # Setting your account information
-ACCOUNT = 'directmailers'
+ACCOUNT = 'account'
 USER = 'username'
 PASSWORD = 'password'
 
