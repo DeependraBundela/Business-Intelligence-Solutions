@@ -6,8 +6,8 @@ import csv
 
 # Setting your account information
 ACCOUNT = 'directmailers'
-USER = 'Deependra'
-PASSWORD = 'T@ble@u2048'
+USER = 'username'
+PASSWORD = 'password'
 
 # Connecting to the Snowflake DB
 cnx = snowflake.connector.connect(
@@ -20,14 +20,9 @@ cnx = snowflake.connector.connect(
 cnx.cursor().execute("USE warehouse APP01_WH;")
 cnx.cursor().execute("USE database FREE_Reporting;")
 
-
-
-
 ################################################################################################################################
 ##                              End of STML, Start CO                                                                        ###
 ################################################################################################################################
-
-
 
 ####################### CO_2017_01_02 ###################################################
 print(" ########################################## ")
@@ -56,7 +51,6 @@ print(" Data Extraction for CO_2017_01_02_Portfolio - DONE  ")
 Process_Log_status_Message= Process_Log_status_Message + "\n Data Extraction for CO_2017_01_02_Portfolio - DONE  "
 
 #############################################################################################
-
 
 ######################## CO_2016_01_12 ################################################
 print(" ########################################## ")
