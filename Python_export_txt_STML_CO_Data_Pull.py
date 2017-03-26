@@ -8,8 +8,8 @@ import csv
 
 # Setting your account information
 ACCOUNT = 'directmailers'
-USER = 'Deependra'
-PASSWORD = 'T@ble@u2048'
+USER = 'Username'
+PASSWORD = 'Password'
 
 # Connecting to the Snowflake DB
 cnx = snowflake.connector.connect(
@@ -240,8 +240,6 @@ print(" Data Extraction for CO_2017_01_02 - DONE  ")
 Process_Log_status_Message= Process_Log_status_Message + "\n Data Extraction for CO_2017_01_02 - DONE "
 
 ##########################################################################
-
-
 print(Process_Log_status_Message)
 # Close File
 outfile.close()
