@@ -7,6 +7,7 @@ QC Involves:
 1. In this process, before extracting data, first current report is pulled and compared with previously sent report and a comparion report is prepared using using Python Pandas. On this comparision report, lot of business rules are applied to check if there are any business or data anamolies. If there are anamolies, detailed are emailed to stakeholders. If there are no anamolies data is extracted from snowflake, zipped, sent to sftp location and email is sent to respective respective stakeholders.
 
 Steps to use:
-1. Run main bat file.
+1. Som_Data_Main_Bat.bat
+
 
 
