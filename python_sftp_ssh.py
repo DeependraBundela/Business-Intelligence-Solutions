@@ -3,12 +3,10 @@ import datetime
 import os
 import sys
 
-host = "sftp.freedommortgage.com"                    #hard-coded
+host = "sftp.abc.com"                    #hard-coded
 port = 22
-password = "9xCLcvlR"                #hard-coded
-username = "dmsftp"                #hard-coded
-
-
+password = "password"                #hard-coded
+username = "username"                #hard-coded
 
 ssh = paramiko.SSHClient()
 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
