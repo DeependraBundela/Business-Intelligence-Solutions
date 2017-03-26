@@ -9,8 +9,8 @@ port = 22
   
 transport = paramiko.Transport((host, port))
 
-password = "9xCLcvlR"                #hard-coded
-username = "dmsftp"                #hard-coded
+password = "password"                #hard-coded
+username = "username"                #hard-coded
 transport.connect(username = username, password = password)
 
 sftp = paramiko.SFTPClient.from_transport(transport)
