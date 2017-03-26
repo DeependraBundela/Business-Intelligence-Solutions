@@ -9,8 +9,6 @@ import csv
 import smtplib
 import datetime
 
-
-
 ############################################  Email Notification Configuration starts  #################################################################################################################################
 
 # Email File Configuration
@@ -18,12 +16,12 @@ def SendEmail(text):
     s=smtplib.SMTP("smtp.office365.com", 587)
     s.ehlo()
     s.starttls()
-    s.login("deependra@directmailers.com", "Royan@100")
+    s.login("email@abc.com", "password")
 
-    from_addr = 'deependra@directmailers.com'
-    to_addr = 'deependra@directmailers.com'
+    from_addr = 'email@abc.com'
+    to_addr = 'email@abc.com'
 
-    subj = "SOM Data QC NOTIFICATION"
+    subj = "Data QC NOTIFICATION"
     date = datetime.datetime.now().strftime( "%d/%m/%Y %H:%M" )
 
     message_text = text
@@ -34,15 +32,14 @@ def SendEmail(text):
     s.quit()
     return;
 
-
 ############################################  Email Notification Configuration Ends  #################################################################################################################################
 
 ############################################  SnowFlake Connection Configurtion starts  #################################################################################################################################
 
 # Setting your account information
-ACCOUNT = 'directmailers'
-USER = 'Deependra'
-PASSWORD = 'T@ble@u2048'
+ACCOUNT = 'account'
+USER = 'username'
+PASSWORD = 'password'
 
 # Connecting to the Snowflake DB
 cnx = snowflake.connector.connect(
@@ -164,7 +161,6 @@ Old_record = pd.concat([Old_record,New_record])
 
 ############################################  Building Difference Report Ends  #################################################################################################################################
 
-
 #################################################   Saving Sum Row to DataFrame   ############################################################################################################################
 Qc_Old_record = Old_record.replace(r'\s*', np.nan, regex=True)
 Qc_Old_record.fillna(0, inplace=True)
@@ -254,7 +250,6 @@ format3 = workbook.add_format({'bold': True,'align':'center'})
 format2 = workbook.add_format({'align':'center'})
 #format3.set_border(4)
 
-
 # Set the column width and format.
 worksheet.set_column('K:T', 13, format2)
 worksheet.set_column('C:G', 13, format2)
@@ -265,7 +260,6 @@ worksheet.set_row(-1,20, format3)
 
 # Close the Pandas Excel writer and output the Excel file.
 writer.save()
-
 
 ########################################################################## Email Notification of QC ###################################################################################
 if QC_Check_Counter == 1:
@@ -278,8 +272,6 @@ if QC_Check_Counter == 1:
 def QC_Check_Counter_Call(QC_Check_Counter):
     return QC_Check_Counter;
     
-
-
 QC_Check_Counter_Call(QC_Check_Counter)    
     
  
