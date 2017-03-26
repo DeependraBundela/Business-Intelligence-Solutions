@@ -14,8 +14,6 @@ Log_status_Message=Log_status_Message + "\n Data Extraction - DONE "
 
 print(Log_status_Message)
 
-
-
 print(" ########################################## ")
 #run child script 5 Emailed Status
 print(" EMAIL - SENT STARTED ")
