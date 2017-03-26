@@ -18,12 +18,12 @@ def SendEmail(text):
     s=smtplib.SMTP("smtp.office365.com", 587)
     s.ehlo()
     s.starttls()
-    s.login("deependra@directmailers.com", "Royan@100")
+    s.login("email@abc.com", "password")
 
-    from_addr = 'deependra@directmailers.com'
-    to_addr = 'deependra@directmailers.com'
+    from_addr = 'email@abc.com'
+    to_addr = 'email@abc.com'
 
-    subj = "SOM Data QC NOTIFICATION"
+    subj = "Data QC NOTIFICATION"
     date = datetime.datetime.now().strftime( "%d/%m/%Y %H:%M" )
 
     message_text = text
@@ -34,15 +34,14 @@ def SendEmail(text):
     s.quit()
     return;
 
-
 ############################################  Email Notification Configuration Ends  #################################################################################################################################
 
 ############################################  SnowFlake Connection Configurtion starts  #################################################################################################################################
 
 # Setting your account information
-ACCOUNT = 'directmailers'
-USER = 'Deependra'
-PASSWORD = 'T@ble@u2048'
+ACCOUNT = 'account'
+USER = 'username'
+PASSWORD = 'password'
 
 # Connecting to the Snowflake DB
 cnx = snowflake.connector.connect(
@@ -53,13 +52,11 @@ cnx = snowflake.connector.connect(
 
 ############################################  SnowFlake Connection Configurtion Ends  #################################################################################################################################
 
-
 ############################################  Fetching Dat from Snowflake starts  #################################################################################################################################
 
 # Using Database, Schema and Warehouse -OLD Report
 cnx.cursor().execute("USE warehouse APP01_WH;")
 cnx.cursor().execute("USE database FREE_Reporting;")
-
 
 cur_Report_ID = cnx.cursor().execute(""" select max(Report_Id)FROM dbo.Som_Data_Reports_STML; """).fetchone()
 Max_Report_Id = cur_Report_ID[0]
@@ -70,7 +67,6 @@ cur = cnx.cursor()
 cur.execute(""" SELECT * FROM dbo.Som_Data_Reports_STML where Report_Id = %s ;  """, Max_Report_Id )
 old=pd.DataFrame(cur.fetchall())
 old.columns = [col[0] for col in cur.description]
-
 
 # Using Database, Schema and Warehouse -new Report
 cnx.cursor().execute("USE warehouse APP01_WH;")
@@ -84,7 +80,6 @@ new.columns = [col[0] for col in cur.description]
 
 ############################################  Fetching Dat from Snowflake Ends  #################################################################################################################################
 
-
 ############################################  Building Difference Report Starts  #################################################################################################################################
 Date_NEW = new['DATEMAILED']
 #print(Date_NEW)
@@ -93,7 +88,6 @@ Date_Old = old['DATEMAILED']
 #new['Response'] = (new['Response'].str.split()).replace(',', '')
 
 Old_record = pd.DataFrame([['','','','','','','','','','','','','','','','','','','']],columns=['DATEMAILED_New','Mailed_New','Response_New','App_New','Gate_New','Fund_New','Seperator Column','Report_Date_Old','DATEMAILED_Old','Mailed_Old','Response_Old','App_Old','Gate_Old','Fund_Old','Mailed_Diff','Response_Diff','App_Diff','Gate_Diff','Fund_Diff'])
-
 
 for i in Date_NEW:
   
@@ -157,13 +151,9 @@ for i in Date_NEW:
           New_record = pd.DataFrame([[i,Mailed_new,Response_new,App_new,Gate_new,Fund_new,'','','','','','','','','','','','','']],columns=['DATEMAILED_New','Mailed_New','Response_New','App_New','Gate_New','Fund_New','Seperator Column','Report_Date_Old','DATEMAILED_Old','Mailed_Old','Response_Old','App_Old','Gate_Old','Fund_Old','Mailed_Diff','Response_Diff','App_Diff','Gate_Diff','Fund_Diff'])
           Old_record = pd.concat([Old_record,New_record])
 
-    
-
 Old_record = pd.concat([Old_record,New_record])
 
-
 ############################################  Building Difference Report Ends  #################################################################################################################################
-
 
 #################################################   Saving Sum Row to DataFrame   ############################################################################################################################
 Qc_Old_record = Old_record.replace(r'\s*', np.nan, regex=True)
@@ -180,13 +170,10 @@ Old_record_save = pd.concat([Old_record,sum_record])
 
 #Old_record_save.to_csv('C:\\Deep\\Python\\Project_Som_Data\\QC_Result\\Som_Data_QC_Result_STML.csv',mode='w')
 
-
 ######################################################################## QC Checks starts Here ###############################################################################
-
 
 QC_Check_Counter=0
 QC_Check_Error_Message = ""
-
 
 ### Checking the Difference in Mailed Quanity
 for i in range(0,Qc_Old_record['Mailed_Diff'].count()):
@@ -415,8 +402,6 @@ for i in range(0,Qc_Old_record['Mailed_Diff'].count()):
           QC_Check_Error_Message = QC_Check_Error_Message + "\n Mail difference for " + str(Qc_Old_record['DATEMAILED_New'].iloc[i])+ " is greater than expected." + " Mail difference is " + str(Qc_Old_record['Mailed_Diff'].iloc[i])
 
 
-
-
 ### Checking the Difference in Fund Quanity
 for i in range(0,Qc_Old_record['Fund_Diff'].count()):
      if Qc_Old_record['Fund_Diff'].iloc[i] > 50:
@@ -510,9 +495,6 @@ else:
      text_file.close()
      #os.system('C:\\Deep\\Python\Project_Som_Data\\Python_Som_Data_Main.py') 
 
-     
+        
+       
 ############################################################################################ End ###########################################################################################
-
-
- 
-
